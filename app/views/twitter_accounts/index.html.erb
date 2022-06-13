@@ -1,0 +1,54 @@
+<div class="d-flex aling-items-center justify-content-center">
+    <h1>Twitter Accounts</h1>
+</div>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <% @twitter_accounts.each do |twitter_account|%>
+        <div class="col-md-auto mt-5 ">
+            <div class="card">
+                <div class="card-body justify-content-center">
+                        <a class="d-flex align-items-center" href="<%="https://twitter.com/#{twitter_account.username}"%>">
+                            <%= image_tag twitter_account.image, class: "rounded-circle" unless twitter_account.image.nil?%>
+                            <div class="d-flex flex-column px-2">
+                                <div class="fw-bold"><%=twitter_account.name%></div>
+                                <div>@<%= twitter_account.username%></div>
+                            </div>
+                        </a>
+                    <button type="button" class="btn btn-danger mt-4 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Disconnect Account
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                You are about to disconnect from the Twitter Account bellow:
+                                <div class="card">
+                                    <div class="card-header d-flex align-items-center justify-content-center">
+                                        <%= image_tag twitter_account.image, class: "rounded-circle" unless twitter_account.image.nil? %>
+                                        <h4 class="card-title px-2"><%= link_to "#{twitter_account.name}", "https://twitter.com/#{twitter_account.username}", target: :_blank %></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <%= button_to "Yes disconnect", twitter_account, method: :delete ,class: "btn btn-danger" %>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+    <div class="col-md-auto mt-5 d-flex align-items-center justify-content-center">
+        <%= button_to "Connect New Account 🎈", "/auth/twitter", method: :post, data: {turbo: "false"} ,class: "btn btn-primary" %>
+    </div>
+</div>
+
+

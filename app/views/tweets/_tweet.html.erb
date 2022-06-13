@@ -1,0 +1,23 @@
+<div class="col-md-auto mt-5 ">
+    <div class="card" style="min-width: 20rem">
+        <div class="card-body">
+            <a class="d-flex align-items-center" href="<%="https://twitter.com/#{tweet.twitter_account.username}"%>">
+                <%= image_tag tweet.twitter_account.image, class: "rounded-circle" unless tweet.twitter_account.image.nil?%>
+                <div class="d-flex flex-column px-2">
+                    <div class="fw-bold"><%=tweet.twitter_account.name%></div>
+                    <div>@<%= tweet.twitter_account.username%></div>
+                </div>
+            </a>
+            <div class="fs-4 mt-3"><%= tweet.body %></div>
+            <% if tweet.published? %>
+               <div class="fs-6 text-secondary"><%= tweet.updated_at.strftime("%l:%M %p • %b %e,%Y") %></div>
+                <%= link_to "View Tweet", "https://twitter.com/#{tweet.twitter_account.username}/status/#{tweet.tweet_id}", target: :_blank %>
+            <% else %>
+               <div class="fs-6 text-secondary"> Scheduled for:<%= tweet.publish_at.strftime("%l:%M %p • %b %e,%Y") %></div>
+            <% end %>
+            <hr/>
+            <%= link_to "Edit Tweet", edit_tweet_path(tweet), class: "btn btn-primary" %>
+        </div>
+
+    </div>
+</div>
